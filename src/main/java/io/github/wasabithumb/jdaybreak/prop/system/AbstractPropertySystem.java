@@ -30,9 +30,14 @@ abstract class AbstractPropertySystem implements PropertySystem {
     }
 
     protected static void finalizeProcess(Process p) throws ThemeQueryException {
+        finalizeProcess(p, false);
+    }
+
+    protected static boolean finalizeProcess(Process p, boolean allowExit1) throws ThemeQueryException {
         try {
             int ex = p.waitFor();
-            if (ex == 0) return;
+            if (ex == 0) return true;
+            if (allowExit1 && ex == 1) return false;
             throw newQueryException(new IllegalStateException("Process exited with status code " + ex));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

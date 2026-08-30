@@ -51,7 +51,7 @@ final class GnomePropertySystem extends AbstractPropertySystem {
             ) {
                 out = readPropertyString(br);
             }
-            finalizeProcess(p);
+            if (!finalizeProcess(p, true)) return "";
             return out;
         } catch (IOException e) {
             throw newQueryException(e);
