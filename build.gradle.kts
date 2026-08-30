@@ -7,7 +7,7 @@ plugins {
 
 description = "Lightweight Java library for querying the system UI theme"
 group = "io.github.wasabithumb"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
