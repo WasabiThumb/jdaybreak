@@ -26,8 +26,7 @@ indra {
     github("WasabiThumb", "jdaybreak")
     javaVersions {
         target(8)
-        minimumToolchain(17)
-        testWith(17)
+        minimumToolchain(25)
     }
     configurePublications {
         artifactId = "jdaybreak"
@@ -50,6 +49,13 @@ indra {
 
 indraSpotlessLicenser {
     licenseHeaderFile(rootProject.file("license_header.txt"))
+}
+
+
+sourceSets.test {
+    multirelease {
+        alternateVersions(25)
+    }
 }
 
 tasks.test {
