@@ -1,0 +1,13 @@
+[versions]
+indra = "4.1.0"
+jspecify = "1.0.1"
+jetbrains-annotations = "26.1.0"
+
+[libraries]
+jspecify = { group = "org.jspecify", name = "jspecify", version.ref = "jspecify" }
+jetbrains-annotations = { group = "org.jetbrains", name = "annotations", version.ref = "jetbrains-annotations" }
+
+[plugins]
+indra-base = { id = "net.kyori.indra", version.ref = "indra" }
+indra-licenser = { id = "net.kyori.indra.licenser.spotless", version.ref = "indra" }
+indra-publishing = { id = "net.kyori.indra.publishing.sonatype", version.ref = "indra" }
