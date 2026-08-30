@@ -7,7 +7,7 @@ plugins {
 
 description = "Lightweight Java library for querying the system UI theme"
 group = "io.github.wasabithumb"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -26,8 +26,7 @@ indra {
     github("WasabiThumb", "jdaybreak")
     javaVersions {
         target(8)
-        minimumToolchain(17)
-        testWith(17)
+        minimumToolchain(25)
     }
     configurePublications {
         artifactId = "jdaybreak"
@@ -50,6 +49,13 @@ indra {
 
 indraSpotlessLicenser {
     licenseHeaderFile(rootProject.file("license_header.txt"))
+}
+
+
+sourceSets.test {
+    multirelease {
+        alternateVersions(25)
+    }
 }
 
 tasks.test {

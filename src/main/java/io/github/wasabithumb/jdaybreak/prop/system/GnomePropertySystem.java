@@ -51,7 +51,7 @@ final class GnomePropertySystem extends AbstractPropertySystem {
             ) {
                 out = readPropertyString(br);
             }
-            finalizeProcess(p);
+            if (!finalizeProcess(p, true)) return "";
             return out;
         } catch (IOException e) {
             throw newQueryException(e);
@@ -60,6 +60,7 @@ final class GnomePropertySystem extends AbstractPropertySystem {
 
     private static String readPropertyString(Reader r) throws IOException {
         int b = r.read();
+        if (b == -1) return "";
         if (b != 0x27) throw new IOException("expected string property to begin with single quote (got " + b + ")");
 
         StringBuilder sb = new StringBuilder();
