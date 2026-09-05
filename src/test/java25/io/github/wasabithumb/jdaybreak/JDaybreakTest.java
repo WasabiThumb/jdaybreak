@@ -29,7 +29,9 @@ class JDaybreakTest {
 
     @Test
     void properties() {
-        Properties props = PropertySystem.host().query();
+        PropertySystem ps = PropertySystem.host();
+        System.out.println(ps.getClass().getName());
+        Properties props = ps.query();
         assertNotNull(props);
         if (!GraphicsEnvironment.isHeadless()) assertFalse(props.has(Property.HEADLESS));
         System.out.println(props);
