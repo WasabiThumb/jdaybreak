@@ -61,6 +61,7 @@ final class XfcePropertySystem extends AbstractPropertySystem {
 
     @Override
     public Properties query() throws ThemeQueryException {
+        if (isAwtHeadless()) return headless();
         ProcessBuilder pb = XFCONF_QUERY.newProcessBuilder(
                 "-c", "xsettings",
                 "-p", "/Net",

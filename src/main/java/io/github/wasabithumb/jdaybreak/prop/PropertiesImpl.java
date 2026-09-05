@@ -28,6 +28,7 @@ import java.util.Objects;
 @ApiStatus.Internal
 final class PropertiesImpl implements Properties {
 
+    private static final Object VOID_VALUE = new Object();
     private static final Property<?>[] UNIVERSE = Property.values();
 
     @Contract("null -> fail")
@@ -53,8 +54,10 @@ final class PropertiesImpl implements Properties {
 
     @Override
     public <T> T get(Property<T> property) throws NoSuchElementException {
-        Object value = this.values[unwrap(property)];
+        final int ordinal = unwrap(property);
+        Object value = this.values[ordinal];
         if (null == value) throw new NoSuchElementException("property " + property.name() + " is not set");
+        if (property.isVoid()) throw new IllegalArgumentException("cannot get value of void property " + property.name());
         return property.valueType().cast(value);
     }
 
@@ -76,11 +79,13 @@ final class PropertiesImpl implements Properties {
         for (int i = 0; i < UNIVERSE.length; i++) {
             Property<?> key = UNIVERSE[i];
             Object value = this.values[i];
-            if (value == null) continue;
+            if (null == value) continue;
             if (sep) sb.append(", ");
             sb.append(key.name());
-            sb.append('=');
-            sb.append(value);
+            if (!key.isVoid()) {
+                sb.append('=');
+                sb.append(value);
+            }
             sep = true;
         }
         sb.append('}');
@@ -104,6 +109,12 @@ final class PropertiesImpl implements Properties {
         @Override
         public <T> Builder set(Property<T> property, T value) {
             this.values[unwrap(property)] = value;
+            return this;
+        }
+
+        @Override
+        public Builder set(Property<Void> property) {
+            this.values[unwrap(property)] = VOID_VALUE;
             return this;
         }
 

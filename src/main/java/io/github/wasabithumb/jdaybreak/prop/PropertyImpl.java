@@ -45,7 +45,12 @@ final class PropertyImpl<T> implements Property<T> {
 
     @Contract("_, _ -> new")
     static <R> PropertyImpl<R> define(String name, Class<R> typeClass) {
-        return new PropertyImpl<>(name, typeClass);
+        return new PropertyImpl<>(name, typeClass, Void.TYPE.equals(typeClass));
+    }
+
+    @Contract("_ -> new")
+    static PropertyImpl<Void> define(String name) {
+        return new PropertyImpl<>(name, Void.TYPE, true);
     }
 
     //
@@ -53,11 +58,17 @@ final class PropertyImpl<T> implements Property<T> {
     private final int ordinal;
     private final String name;
     private final Class<T> typeClass;
+    private final boolean isVoid;
 
-    private PropertyImpl(String name, Class<T> typeClass) {
+    private PropertyImpl(
+            String name,
+            Class<T> typeClass,
+            boolean isVoid
+    ) {
         this.ordinal = register(this);
         this.name = name;
         this.typeClass = typeClass;
+        this.isVoid = isVoid;
     }
 
     //
@@ -75,6 +86,11 @@ final class PropertyImpl<T> implements Property<T> {
     @Override
     public Class<T> valueType() {
         return this.typeClass;
+    }
+
+    @Override
+    public boolean isVoid() {
+        return this.isVoid;
     }
 
     @Override
