@@ -15,6 +15,8 @@
  */
 package io.github.wasabithumb.jdaybreak;
 
+import io.github.wasabithumb.jdaybreak.prop.Properties;
+import io.github.wasabithumb.jdaybreak.prop.system.PropertySystem;
 import io.github.wasabithumb.jdaybreak.theme.Theme;
 import org.junit.jupiter.api.Test;
 
@@ -23,10 +25,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class JDaybreakTest {
 
     @Test
-    void simple() {
+    void properties() {
+        Properties props = PropertySystem.host().query();
+        assertNotNull(props);
+        System.out.println(props);
+    }
+
+    @Test
+    void currentTheme() {
         JDaybreak jdb = JDaybreak.jDaybreak();
         Theme theme = assertDoesNotThrow(jdb::currentTheme);
         assertNotNull(theme);
+        System.out.println(theme.name());
     }
 
 }
