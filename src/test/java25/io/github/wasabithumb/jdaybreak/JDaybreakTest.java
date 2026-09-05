@@ -16,9 +16,12 @@
 package io.github.wasabithumb.jdaybreak;
 
 import io.github.wasabithumb.jdaybreak.prop.Properties;
+import io.github.wasabithumb.jdaybreak.prop.Property;
 import io.github.wasabithumb.jdaybreak.prop.system.PropertySystem;
 import io.github.wasabithumb.jdaybreak.theme.Theme;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,6 +31,7 @@ class JDaybreakTest {
     void properties() {
         Properties props = PropertySystem.host().query();
         assertNotNull(props);
+        if (!GraphicsEnvironment.isHeadless()) assertFalse(props.has(Property.HEADLESS));
         System.out.println(props);
     }
 
