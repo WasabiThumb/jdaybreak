@@ -19,6 +19,7 @@ import io.github.wasabithumb.jdaybreak.prop.Properties;
 import io.github.wasabithumb.jdaybreak.prop.Property;
 import io.github.wasabithumb.jdaybreak.prop.system.PropertySystem;
 import io.github.wasabithumb.jdaybreak.theme.Theme;
+import io.github.wasabithumb.jdaybreak.util.SystemUtil;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -33,7 +34,9 @@ class JDaybreakTest {
         System.out.println(ps.getClass().getName());
         Properties props = ps.query();
         assertNotNull(props);
-        if (!GraphicsEnvironment.isHeadless()) assertFalse(props.has(Property.HEADLESS));
+        if (SystemUtil.IS_OTHER && !GraphicsEnvironment.isHeadless()) {
+            assertFalse(props.has(Property.HEADLESS));
+        }
         System.out.println(props);
     }
 

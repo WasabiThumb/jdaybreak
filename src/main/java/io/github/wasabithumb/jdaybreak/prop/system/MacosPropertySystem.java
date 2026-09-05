@@ -59,7 +59,6 @@ final class MacosPropertySystem extends AbstractPropertySystem {
 
     @Override
     public Properties query() throws ThemeQueryException {
-        if (isAwtHeadless()) return headless();
         try {
             Process p = DEFAULTS.newProcessBuilder("read", "-g", "AppleInterfaceStyle").start();
             String style;
@@ -69,6 +68,7 @@ final class MacosPropertySystem extends AbstractPropertySystem {
             ) {
                 style = br.readLine();
             }
+            if (null == style) return headless();
             return Properties.builder()
                     .set(Property.THEME_NAME, style)
                     .build();
