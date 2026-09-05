@@ -61,6 +61,7 @@ sourceSets.test {
 tasks.test {
     useJUnitPlatform()
     testLogging {
+        showStandardStreams = true
         events("passed", "skipped", "failed")
     }
 }
