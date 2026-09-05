@@ -39,6 +39,7 @@ public interface Property<T> {
      * There is no value associated with
      * this property.
      */
+    @ApiStatus.AvailableSince("0.2.0")
     Property<Void> HEADLESS = define("HEADLESS");
 
     /**

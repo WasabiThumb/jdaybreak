@@ -72,6 +72,7 @@ public interface Properties {
         <T> Builder set(Property<T> property, T value);
 
         @Contract("_ -> this")
+        @ApiStatus.AvailableSince("0.2.0")
         Builder set(Property<Void> property);
 
         @Contract("_ -> this")

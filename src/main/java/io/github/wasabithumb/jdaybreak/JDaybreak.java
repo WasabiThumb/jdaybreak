@@ -73,6 +73,7 @@ public interface JDaybreak {
      * typically the {@link ThemeSet#standard() standard set}.
      */
     @Contract(pure = true)
+    @ApiStatus.AvailableSince("0.2.0")
     @Unmodifiable ThemeSet themes();
 
     /**
