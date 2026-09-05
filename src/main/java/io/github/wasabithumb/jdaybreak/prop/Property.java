@@ -32,6 +32,17 @@ import static io.github.wasabithumb.jdaybreak.prop.PropertyImpl.define;
 public interface Property<T> {
 
     /**
+     * Property that is set if the system
+     * properties were not queried because
+     * the system was determined to be
+     * running in a headless environment.
+     * There is no value associated with
+     * this property.
+     */
+    @ApiStatus.AvailableSince("0.2.0")
+    Property<Void> HEADLESS = define("HEADLESS");
+
+    /**
      * Property that is set if the operating system
      * makes an affirmative claim about whether ({@code true})
      * or not ({@code false}) the system uses a light theme.
@@ -88,5 +99,13 @@ public interface Property<T> {
      */
     @Contract(pure = true)
     Class<T> valueType();
+
+    /**
+     * Returns {@code true} if the {@link #valueType() value type}
+     * of this property is {@link Void}. This may be
+     * faster than {@code Void.TYPE.equals(property.valueType())}.
+     */
+    @Contract(pure = true)
+    boolean isVoid();
 
 }

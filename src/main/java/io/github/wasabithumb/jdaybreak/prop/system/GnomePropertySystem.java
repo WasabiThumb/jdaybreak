@@ -51,7 +51,7 @@ final class GnomePropertySystem extends AbstractPropertySystem {
             ) {
                 out = readPropertyString(br);
             }
-            if (!finalizeProcess(p, true)) return "";
+            finalizeProcess(p);
             return out;
         } catch (IOException e) {
             throw newQueryException(e);
@@ -94,6 +94,7 @@ final class GnomePropertySystem extends AbstractPropertySystem {
 
     @Override
     public Properties query() throws ThemeQueryException {
+        if (isAwtHeadless()) return headless();
         Properties.Builder ret = Properties.builder();
 
         String colorScheme = queryInterfacePropertyString("color-scheme");

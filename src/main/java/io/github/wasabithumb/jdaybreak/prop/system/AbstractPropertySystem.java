@@ -16,6 +16,8 @@
 package io.github.wasabithumb.jdaybreak.prop.system;
 
 import io.github.wasabithumb.jdaybreak.except.ThemeQueryException;
+import io.github.wasabithumb.jdaybreak.prop.Properties;
+import io.github.wasabithumb.jdaybreak.prop.Property;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
 import org.jspecify.annotations.NullMarked;
@@ -29,15 +31,21 @@ abstract class AbstractPropertySystem implements PropertySystem {
         return new ThemeQueryException("Theme query failed unexpectedly", exception);
     }
 
-    protected static void finalizeProcess(Process p) throws ThemeQueryException {
-        finalizeProcess(p, false);
+    protected static boolean isAwtHeadless() {
+        return java.awt.GraphicsEnvironment.isHeadless();
     }
 
-    protected static boolean finalizeProcess(Process p, boolean allowExit1) throws ThemeQueryException {
+    @Contract("-> new")
+    protected static Properties headless() {
+        return Properties.builder()
+                .set(Property.HEADLESS)
+                .build();
+    }
+
+    protected static void finalizeProcess(Process p) throws ThemeQueryException {
         try {
             int ex = p.waitFor();
-            if (ex == 0) return true;
-            if (allowExit1 && ex == 1) return false;
+            if (ex == 0) return;
             throw newQueryException(new IllegalStateException("Process exited with status code " + ex));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

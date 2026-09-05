@@ -15,18 +15,37 @@
  */
 package io.github.wasabithumb.jdaybreak;
 
+import io.github.wasabithumb.jdaybreak.prop.Properties;
+import io.github.wasabithumb.jdaybreak.prop.Property;
+import io.github.wasabithumb.jdaybreak.prop.system.PropertySystem;
 import io.github.wasabithumb.jdaybreak.theme.Theme;
+import io.github.wasabithumb.jdaybreak.util.SystemUtil;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class JDaybreakTest {
 
     @Test
-    void simple() {
+    void properties() {
+        PropertySystem ps = PropertySystem.host();
+        System.out.println(ps.getClass().getName());
+        Properties props = ps.query();
+        assertNotNull(props);
+        if (SystemUtil.IS_OTHER && !GraphicsEnvironment.isHeadless()) {
+            assertFalse(props.has(Property.HEADLESS));
+        }
+        System.out.println(props);
+    }
+
+    @Test
+    void currentTheme() {
         JDaybreak jdb = JDaybreak.jDaybreak();
         Theme theme = assertDoesNotThrow(jdb::currentTheme);
         assertNotNull(theme);
+        System.out.println(theme.name());
     }
 
 }

@@ -7,7 +7,7 @@ plugins {
 
 description = "Lightweight Java library for querying the system UI theme"
 group = "io.github.wasabithumb"
-version = "0.1.1"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -61,6 +61,7 @@ sourceSets.test {
 tasks.test {
     useJUnitPlatform()
     testLogging {
+        showStandardStreams = true
         events("passed", "skipped", "failed")
     }
 }

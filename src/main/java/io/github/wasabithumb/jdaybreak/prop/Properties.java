@@ -53,6 +53,7 @@ public interface Properties {
      * Returns the value associated to the specified
      * property by this object.
      * @throws NoSuchElementException This object does not contain this property.
+     * @throws IllegalArgumentException The provided property is {@link Property#isVoid() void type}.
      * @see #has(Property)
      */
     @Contract(pure = true)
@@ -69,6 +70,10 @@ public interface Properties {
 
         @Contract("_, _ -> this")
         <T> Builder set(Property<T> property, T value);
+
+        @Contract("_ -> this")
+        @ApiStatus.AvailableSince("0.2.0")
+        Builder set(Property<Void> property);
 
         @Contract("_ -> this")
         Builder unset(Property<?> property);

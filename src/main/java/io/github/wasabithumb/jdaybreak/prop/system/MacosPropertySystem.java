@@ -68,6 +68,7 @@ final class MacosPropertySystem extends AbstractPropertySystem {
             ) {
                 style = br.readLine();
             }
+            if (null == style) return headless();
             return Properties.builder()
                     .set(Property.THEME_NAME, style)
                     .build();

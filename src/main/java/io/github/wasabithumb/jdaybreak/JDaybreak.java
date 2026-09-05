@@ -20,6 +20,7 @@ import io.github.wasabithumb.jdaybreak.theme.Theme;
 import io.github.wasabithumb.jdaybreak.theme.ThemeSet;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Unmodifiable;
 import org.jspecify.annotations.NullMarked;
 
 import java.util.Collection;
@@ -66,8 +67,18 @@ public interface JDaybreak {
     //
 
     /**
+     * Provides the immutable set of themes which this
+     * instance will attempt to choose from. This
+     * is the union of themes provided during initialization,
+     * typically the {@link ThemeSet#standard() standard set}.
+     */
+    @Contract(pure = true)
+    @ApiStatus.AvailableSince("0.2.0")
+    @Unmodifiable ThemeSet themes();
+
+    /**
      * Computes the system {@link Theme theme}. This will be exactly one
-     * of the themes provided to this instance during instantiation.
+     * of the themes in the {@link #themes() theme set}.
      * For the {@link #jDaybreak() default instance}, these are the
      * {@link ThemeSet#standard() standard themes}. Therefore, for
      * most use cases, the return value may be adapted to a boolean by

@@ -22,6 +22,7 @@ import io.github.wasabithumb.jdaybreak.prop.system.PropertySystem;
 import io.github.wasabithumb.jdaybreak.theme.Theme;
 import io.github.wasabithumb.jdaybreak.theme.ThemeSet;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Unmodifiable;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -58,6 +59,11 @@ final class JDaybreakImpl implements JDaybreak {
     }
 
     //
+
+    @Override
+    public @Unmodifiable ThemeSet themes() {
+        return this.themes;
+    }
 
     @Override
     public Theme currentTheme() throws ThemeException {

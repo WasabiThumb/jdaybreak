@@ -58,6 +58,7 @@ final class KdePropertySystem extends AbstractPropertySystem {
 
     @Override
     public Properties query() throws ThemeQueryException {
+        if (isAwtHeadless()) return headless();
         try {
             ProcessBuilder pb = KREADCONFIG.newProcessBuilder(
                     "--file", "kdeglobals",
